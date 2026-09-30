@@ -14,6 +14,7 @@ It is intended for demonstration and hackathon purposes only.
 # ============================================================
 
 import os
+import textwrap
 
 import numpy as np
 import pandas as pd
@@ -22,7 +23,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 import folium
-
 from streamlit_folium import st_folium
 
 
@@ -43,267 +43,241 @@ st.set_page_config(
 # ============================================================
 
 st.markdown(
-    """
-    <style>
+    textwrap.dedent(
+        """
+        <style>
 
-    /* ------------------------------------------------------
-       GLOBAL
-    ------------------------------------------------------ */
+        /* ==================================================
+           GLOBAL
+        ================================================== */
 
-    .stApp {
-        background:
-            linear-gradient(
-                135deg,
-                #F5FAF8 0%,
-                #EDF7F4 45%,
-                #F8FBFA 100%
-            );
-    }
+        .stApp {
+            background:
+                linear-gradient(
+                    135deg,
+                    #F5FAF8 0%,
+                    #EDF7F4 45%,
+                    #F8FBFA 100%
+                );
+        }
 
-    .block-container {
-        padding-top: 1.5rem;
-        padding-bottom: 3rem;
-        max-width: 1500px;
-    }
+        .block-container {
+            padding-top: 1.5rem;
+            padding-bottom: 3rem;
+            max-width: 1500px;
+        }
 
 
-    /* ------------------------------------------------------
-       SIDEBAR
-    ------------------------------------------------------ */
+        /* ==================================================
+           SIDEBAR
+        ================================================== */
 
-    section[data-testid="stSidebar"] {
-        background-color: #102A2A;
-    }
+        section[data-testid="stSidebar"] {
+            background-color: #102A2A;
+        }
 
-    section[data-testid="stSidebar"] * {
-        color: #E8F5F2;
-    }
+        section[data-testid="stSidebar"] * {
+            color: #E8F5F2;
+        }
 
 
-    /* ------------------------------------------------------
-       HEADER
-    ------------------------------------------------------ */
+        /* ==================================================
+           HERO
+        ================================================== */
 
-    .hero {
-        background:
-            linear-gradient(
-                135deg,
-                #123C3C,
-                #1F6862
-            );
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #123C3C,
+                    #1F6862
+                );
 
-        padding: 32px 38px;
+            padding: 32px 38px;
 
-        border-radius: 24px;
+            border-radius: 24px;
 
-        color: white;
+            color: white;
 
-        margin-bottom: 25px;
+            margin-bottom: 25px;
 
-        box-shadow:
-            0px 12px 30px
-            rgba(18, 60, 60, 0.15);
-    }
+            box-shadow:
+                0px 12px 30px
+                rgba(18, 60, 60, 0.15);
+        }
 
-    .hero-title {
-        font-size: 42px;
-        font-weight: 800;
-        letter-spacing: -1px;
-        margin-bottom: 5px;
-    }
+        .hero-title {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
 
-    .hero-subtitle {
-        font-size: 17px;
-        opacity: 0.85;
-        margin-bottom: 18px;
-    }
+        .hero-subtitle {
+            font-size: 17px;
+            opacity: 0.85;
+            margin-bottom: 18px;
+        }
 
-    .hero-badge {
-        display: inline-block;
+        .hero-badge {
+            display: inline-block;
 
-        padding: 7px 13px;
+            padding: 7px 13px;
 
-        border-radius: 20px;
+            border-radius: 20px;
 
-        background: rgba(255,255,255,0.13);
+            background: rgba(255,255,255,0.13);
 
-        font-size: 13px;
+            font-size: 13px;
 
-        margin-right: 7px;
-    }
+            margin-right: 7px;
+        }
 
 
-    /* ------------------------------------------------------
-       SECTION TITLES
-    ------------------------------------------------------ */
+        /* ==================================================
+           SECTION TITLES
+        ================================================== */
 
-    .section-title {
-        font-size: 24px;
+        .section-title {
+            font-size: 24px;
+            font-weight: 750;
+            color: #153B3B;
+            margin-top: 25px;
+            margin-bottom: 4px;
+        }
 
-        font-weight: 750;
+        .section-subtitle {
+            font-size: 14px;
+            color: #647777;
+            margin-bottom: 18px;
+        }
 
-        color: #153B3B;
 
-        margin-top: 25px;
+        /* ==================================================
+           KPI CARDS
+        ================================================== */
 
-        margin-bottom: 4px;
-    }
+        .kpi-card {
+            background: rgba(255,255,255,0.85);
 
-    .section-subtitle {
-        font-size: 14px;
+            border: 1px solid #DDEBE7;
 
-        color: #647777;
+            border-radius: 18px;
 
-        margin-bottom: 18px;
-    }
+            padding: 20px;
 
+            min-height: 130px;
 
-    /* ------------------------------------------------------
-       KPI CARDS
-    ------------------------------------------------------ */
+            box-shadow:
+                0 5px 18px
+                rgba(22, 71, 68, 0.06);
+        }
 
-    .kpi-card {
+        .kpi-label {
+            font-size: 13px;
+            color: #6A7E7D;
+            margin-bottom: 8px;
+        }
 
-        background: rgba(255,255,255,0.85);
+        .kpi-value {
+            font-size: 31px;
+            font-weight: 800;
+            color: #153B3B;
+        }
 
-        border: 1px solid #DDEBE7;
+        .kpi-description {
+            font-size: 12px;
+            color: #718483;
+            margin-top: 5px;
+        }
 
-        border-radius: 18px;
 
-        padding: 20px;
+        /* ==================================================
+           ALERT CARDS
+        ================================================== */
 
-        min-height: 130px;
+        .alert-card {
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            background: #FFFFFF;
+            border-left: 5px solid #D96C5F;
 
-        box-shadow:
-            0 5px 18px
-            rgba(22, 71, 68, 0.06);
-    }
+            box-shadow:
+                0 4px 15px
+                rgba(30, 70, 67, 0.06);
+        }
 
-    .kpi-label {
+        .alert-high {
+            border-left-color: #E5A84B;
+        }
 
-        font-size: 13px;
+        .alert-moderate {
+            border-left-color: #6DA9A2;
+        }
 
-        color: #6A7E7D;
+        .alert-title {
+            font-weight: 750;
+            color: #173C3B;
+            font-size: 15px;
+        }
 
-        margin-bottom: 8px;
-    }
+        .alert-text {
+            color: #647777;
+            font-size: 13px;
+            margin-top: 4px;
+        }
 
-    .kpi-value {
 
-        font-size: 31px;
+        /* ==================================================
+           RESPONSE PANEL
+        ================================================== */
 
-        font-weight: 800;
+        .response-panel {
+            background:
+                linear-gradient(
+                    135deg,
+                    #E5F3EF,
+                    #F4FAF8
+                );
 
-        color: #153B3B;
-    }
+            border: 1px solid #CFE5DF;
 
-    .kpi-description {
+            border-radius: 20px;
 
-        font-size: 12px;
+            padding: 25px;
 
-        color: #718483;
+            margin-top: 15px;
+        }
 
-        margin-top: 5px;
-    }
 
+        /* ==================================================
+           FOOTER
+        ================================================== */
 
-    /* ------------------------------------------------------
-       ALERT CARDS
-    ------------------------------------------------------ */
+        .footer {
+            text-align: center;
+            color: #80908F;
+            font-size: 12px;
+            padding-top: 35px;
+        }
 
-    .alert-card {
-
-        padding: 18px;
-
-        border-radius: 16px;
-
-        margin-bottom: 12px;
-
-        background: #FFFFFF;
-
-        border-left: 5px solid #D96C5F;
-
-        box-shadow:
-            0 4px 15px
-            rgba(30, 70, 67, 0.06);
-    }
-
-    .alert-high {
-
-        border-left-color: #E5A84B;
-
-    }
-
-    .alert-moderate {
-
-        border-left-color: #6DA9A2;
-
-    }
-
-    .alert-title {
-
-        font-weight: 750;
-
-        color: #173C3B;
-
-        font-size: 15px;
-
-    }
-
-    .alert-text {
-
-        color: #647777;
-
-        font-size: 13px;
-
-        margin-top: 4px;
-
-    }
-
-
-    /* ------------------------------------------------------
-       RESPONSE PANEL
-    ------------------------------------------------------ */
-
-    .response-panel {
-
-        background:
-            linear-gradient(
-                135deg,
-                #E5F3EF,
-                #F4FAF8
-            );
-
-        border: 1px solid #CFE5DF;
-
-        border-radius: 20px;
-
-        padding: 25px;
-
-        margin-top: 15px;
-    }
-
-
-    /* ------------------------------------------------------
-       FOOTER
-    ------------------------------------------------------ */
-
-    .footer {
-
-        text-align: center;
-
-        color: #80908F;
-
-        font-size: 12px;
-
-        padding-top: 35px;
-
-    }
-
-    </style>
-    """,
+        </style>
+        """
+    ),
     unsafe_allow_html=True
 )
+
+
+def render_html(html):
+    """Render custom HTML as a single Markdown line so Streamlit does not
+    interpret indented HTML lines as Markdown code blocks."""
+    clean_html = " ".join(
+        line.strip()
+        for line in html.splitlines()
+        if line.strip()
+    )
+    st.markdown(clean_html, unsafe_allow_html=True)
 
 
 # ============================================================
@@ -377,26 +351,23 @@ except Exception as error:
 
 with st.sidebar:
 
-    st.markdown(
-        """
-        <div style="
-            font-size:25px;
-            font-weight:800;
-            margin-bottom:4px;
-        ">
-            🏥 CareMesh
-        </div>
+    render_html("""
+            <div style="
+                font-size:25px;
+                font-weight:800;
+                margin-bottom:4px;
+            ">
+                🏥 CareMesh
+            </div>
 
-        <div style="
-            font-size:12px;
-            opacity:0.7;
-            margin-bottom:25px;
-        ">
-            Healthcare Resilience Intelligence
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+            <div style="
+                font-size:12px;
+                opacity:0.7;
+                margin-bottom:25px;
+            ">
+                Healthcare Resilience Intelligence
+            </div>
+            """)
 
     st.markdown(
         "### Navigation"
@@ -445,8 +416,7 @@ with st.sidebar:
 if selected_state != "All States":
 
     filtered_facilities = facilities[
-        facilities["state"]
-        == selected_state
+        facilities["state"] == selected_state
     ].copy()
 
 else:
@@ -460,8 +430,7 @@ filtered_ids = filtered_facilities[
 
 
 filtered_resilience = resilience[
-    resilience["facility_id"]
-    .isin(filtered_ids)
+    resilience["facility_id"].isin(filtered_ids)
 ].copy()
 
 
@@ -469,38 +438,35 @@ filtered_resilience = resilience[
 # HERO
 # ============================================================
 
-st.markdown(
-    """
-    <div class="hero">
+render_html("""
+        <div class="hero">
 
-        <div class="hero-title">
-            CareMesh
+            <div class="hero-title">
+                CareMesh
+            </div>
+
+            <div class="hero-subtitle">
+                Community Healthcare Resilience Intelligence
+            </div>
+
+            <span class="hero-badge">
+                ● AI-Powered
+            </span>
+
+            <span class="hero-badge">
+                ● Predictive
+            </span>
+
+            <span class="hero-badge">
+                ● Explainable
+            </span>
+
+            <span class="hero-badge">
+                ● Response-Oriented
+            </span>
+
         </div>
-
-        <div class="hero-subtitle">
-            Community Healthcare Resilience Intelligence
-        </div>
-
-        <span class="hero-badge">
-            ● AI-Powered
-        </span>
-
-        <span class="hero-badge">
-            ● Predictive
-        </span>
-
-        <span class="hero-badge">
-            ● Explainable
-        </span>
-
-        <span class="hero-badge">
-            ● Response-Oriented
-        </span>
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+        """)
 
 
 # ============================================================
@@ -510,9 +476,7 @@ st.markdown(
 if page == "Command Center":
 
     st.markdown(
-        '<div class="section-title">'
-        'Network Pulse'
-        '</div>',
+        '<div class="section-title">Network Pulse</div>',
         unsafe_allow_html=True
     )
 
@@ -523,9 +487,10 @@ if page == "Command Center":
         unsafe_allow_html=True
     )
 
-    # --------------------------------------------------------
+
+    # ========================================================
     # KPI CALCULATIONS
-    # --------------------------------------------------------
+    # ========================================================
 
     total_facilities = len(
         filtered_facilities
@@ -533,15 +498,13 @@ if page == "Command Center":
 
     critical_count = len(
         filtered_resilience[
-            filtered_resilience["risk_level"]
-            == "CRITICAL"
+            filtered_resilience["risk_level"] == "CRITICAL"
         ]
     )
 
     high_count = len(
         filtered_resilience[
-            filtered_resilience["risk_level"]
-            == "HIGH"
+            filtered_resilience["risk_level"] == "HIGH"
         ]
     )
 
@@ -552,8 +515,7 @@ if page == "Command Center":
     )
 
     latest_inventory = inventory[
-        inventory["facility_id"]
-        .isin(filtered_ids)
+        inventory["facility_id"].isin(filtered_ids)
     ]
 
     latest_date = latest_inventory[
@@ -561,8 +523,7 @@ if page == "Command Center":
     ].max()
 
     latest_inventory = latest_inventory[
-        latest_inventory["date"]
-        == latest_date
+        latest_inventory["date"] == latest_date
     ]
 
     stockout_count = int(
@@ -571,115 +532,122 @@ if page == "Command Center":
         ].sum()
     )
 
-    # --------------------------------------------------------
+
+    # ========================================================
     # KPI CARDS
-    # --------------------------------------------------------
+    # ========================================================
 
     k1, k2, k3, k4 = st.columns(4)
 
+
+    # --------------------------------------------------------
+    # KPI 1
+    # --------------------------------------------------------
+
     with k1:
 
-        st.markdown(
-            f"""
-            <div class="kpi-card">
+        render_html(f"""
+                <div class="kpi-card">
 
-                <div class="kpi-label">
-                    HEALTHCARE FACILITIES
+                    <div class="kpi-label">
+                        HEALTHCARE FACILITIES
+                    </div>
+
+                    <div class="kpi-value">
+                        {total_facilities}
+                    </div>
+
+                    <div class="kpi-description">
+                        Facilities monitored
+                    </div>
+
                 </div>
+                """)
 
-                <div class="kpi-value">
-                    {total_facilities}
-                </div>
 
-                <div class="kpi-description">
-                    Facilities monitored
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    # --------------------------------------------------------
+    # KPI 2
+    # --------------------------------------------------------
 
     with k2:
 
-        st.markdown(
-            f"""
-            <div class="kpi-card">
+        render_html(f"""
+                <div class="kpi-card">
 
-                <div class="kpi-label">
-                    CRITICAL FACILITIES
+                    <div class="kpi-label">
+                        CRITICAL FACILITIES
+                    </div>
+
+                    <div class="kpi-value"
+                         style="color:#C8564A;">
+                        {critical_count}
+                    </div>
+
+                    <div class="kpi-description">
+                        Immediate attention required
+                    </div>
+
                 </div>
+                """)
 
-                <div class="kpi-value"
-                     style="color:#C8564A;">
-                    {critical_count}
-                </div>
 
-                <div class="kpi-description">
-                    Immediate attention required
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    # --------------------------------------------------------
+    # KPI 3
+    # --------------------------------------------------------
 
     with k3:
 
-        st.markdown(
-            f"""
-            <div class="kpi-card">
+        render_html(f"""
+                <div class="kpi-card">
 
-                <div class="kpi-label">
-                    HIGH-RISK FACILITIES
+                    <div class="kpi-label">
+                        HIGH-RISK FACILITIES
+                    </div>
+
+                    <div class="kpi-value"
+                         style="color:#C58A2C;">
+                        {high_count}
+                    </div>
+
+                    <div class="kpi-description">
+                        Emerging resilience concerns
+                    </div>
+
                 </div>
+                """)
 
-                <div class="kpi-value"
-                     style="color:#C58A2C;">
-                    {high_count}
-                </div>
 
-                <div class="kpi-description">
-                    Emerging resilience concerns
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    # --------------------------------------------------------
+    # KPI 4
+    # --------------------------------------------------------
 
     with k4:
 
-        st.markdown(
-            f"""
-            <div class="kpi-card">
+        render_html(f"""
+                <div class="kpi-card">
 
-                <div class="kpi-label">
-                    NETWORK RESILIENCE
+                    <div class="kpi-label">
+                        NETWORK RESILIENCE
+                    </div>
+
+                    <div class="kpi-value">
+                        {average_resilience:.1f}
+                    </div>
+
+                    <div class="kpi-description">
+                        Average resilience score / 100
+                    </div>
+
                 </div>
-
-                <div class="kpi-value">
-                    {average_resilience:.1f}
-                </div>
-
-                <div class="kpi-description">
-                    Average resilience score / 100
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+                """)
 
 
     # ========================================================
-    # MAP + RISK DISTRIBUTION
+    # NETWORK RISK MAP
     # ========================================================
 
     st.markdown(
-        '<div class="section-title">'
-        'Network Risk Map'
-        '</div>',
+        '<div class="section-title">Network Risk Map</div>',
         unsafe_allow_html=True
     )
 
@@ -690,28 +658,25 @@ if page == "Command Center":
         unsafe_allow_html=True
     )
 
+
     map_col, chart_col = st.columns(
         [1.6, 1]
     )
 
 
-    # --------------------------------------------------------
+    # ========================================================
     # MAP
-    # --------------------------------------------------------
+    # ========================================================
 
     with map_col:
 
-        center_lat = (
-            filtered_facilities[
-                "latitude"
-            ].mean()
-        )
+        center_lat = filtered_facilities[
+            "latitude"
+        ].mean()
 
-        center_lon = (
-            filtered_facilities[
-                "longitude"
-            ].mean()
-        )
+        center_lon = filtered_facilities[
+            "longitude"
+        ].mean()
 
         network_map = folium.Map(
             location=[
@@ -719,7 +684,7 @@ if page == "Command Center":
                 center_lon
             ],
             zoom_start=6,
-            tiles="CartoDB positron"
+            tiles="OpenStreetMap"
         )
 
         color_map = {
@@ -743,9 +708,7 @@ if page == "Command Center":
 
         for _, row in map_data.iterrows():
 
-            risk = row[
-                "risk_level"
-            ]
+            risk = row["risk_level"]
 
             popup_text = f"""
             <b>{row['facility_name']}</b><br>
@@ -786,9 +749,9 @@ if page == "Command Center":
         )
 
 
-    # --------------------------------------------------------
+    # ========================================================
     # RISK DISTRIBUTION
-    # --------------------------------------------------------
+    # ========================================================
 
     with chart_col:
 
@@ -843,7 +806,7 @@ if page == "Command Center":
 
         st.plotly_chart(
             fig,
-            use_container_width=True
+            width="stretch"
         )
 
 
@@ -852,9 +815,7 @@ if page == "Command Center":
     # ========================================================
 
     st.markdown(
-        '<div class="section-title">'
-        'AI Alert Center'
-        '</div>',
+        '<div class="section-title">AI Alert Center</div>',
         unsafe_allow_html=True
     )
 
@@ -865,45 +826,37 @@ if page == "Command Center":
         unsafe_allow_html=True
     )
 
+
     alerts = (
         filtered_resilience
-        .sort_values(
-            "resilience_score"
-        )
+        .sort_values("resilience_score")
         .head(5)
     )
+
 
     for _, row in alerts.iterrows():
 
         reasons = []
 
-        if row[
-            "avg_days_inventory"
-        ] < 5:
+        if row["avg_days_inventory"] < 5:
 
             reasons.append(
                 "low medicine inventory"
             )
 
-        if row[
-            "bed_occupancy_rate"
-        ] > 0.85:
+        if row["bed_occupancy_rate"] > 0.85:
 
             reasons.append(
                 "high bed occupancy"
             )
 
-        if row[
-            "supplier_delay_days"
-        ] >= 3:
+        if row["supplier_delay_days"] >= 3:
 
             reasons.append(
                 "supplier delay"
             )
 
-        if row[
-            "stockout_count"
-        ] > 0:
+        if row["stockout_count"] > 0:
 
             reasons.append(
                 "medicine stock-out"
@@ -919,9 +872,7 @@ if page == "Command Center":
             reasons
         )
 
-        risk = row[
-            "risk_level"
-        ]
+        risk = row["risk_level"]
 
         css_class = (
             "alert-card"
@@ -935,28 +886,25 @@ if page == "Command Center":
             else "🟠"
         )
 
-        st.markdown(
-            f"""
-            <div class="{css_class}">
+        render_html(f"""
+                <div class="{css_class}">
 
-                <div class="alert-title">
-                    {icon}
-                    {row['facility_name']}
-                    · {risk}
+                    <div class="alert-title">
+                        {icon}
+                        {row['facility_name']}
+                        · {risk}
+                    </div>
+
+                    <div class="alert-text">
+                        Resilience score:
+                        <b>{row['resilience_score']:.1f}</b>
+                        &nbsp; • &nbsp;
+                        Signals:
+                        {reason_text}
+                    </div>
+
                 </div>
-
-                <div class="alert-text">
-                    Resilience score:
-                    <b>{row['resilience_score']:.1f}</b>
-                    &nbsp; • &nbsp;
-                    Signals:
-                    {reason_text}
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+                """)
 
 
 # ============================================================
@@ -979,46 +927,52 @@ elif page == "Facility Intelligence":
         unsafe_allow_html=True
     )
 
-    facility_options = (
-        filtered_facilities[
-            "facility_id"
-        ]
-        .tolist()
-    )
+
+    facility_options = filtered_facilities[
+        "facility_id"
+    ].tolist()
 
     selected_facility = st.selectbox(
         "Select facility",
         facility_options
     )
 
+
     facility = filtered_resilience[
         filtered_resilience[
             "facility_id"
-        ]
-        == selected_facility
+        ] == selected_facility
     ].iloc[0]
 
-    st.markdown(
-        f"""
-        <div class="response-panel">
 
-            <h2 style="color:#153B3B;">
-                {facility['facility_name']}
-            </h2>
+    # ========================================================
+    # FACILITY HEADER
+    # ========================================================
 
-            <p style="color:#607574;">
-                {facility['district']},
-                {facility['state']}
-                ·
-                {facility['facility_type']}
-            </p>
+    render_html(f"""
+            <div class="response-panel">
 
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+                <h2 style="color:#153B3B;">
+                    {facility['facility_name']}
+                </h2>
+
+                <p style="color:#607574;">
+                    {facility['district']},
+                    {facility['state']}
+                    ·
+                    {facility['facility_type']}
+                </p>
+
+            </div>
+            """)
+
+
+    # ========================================================
+    # FACILITY METRICS
+    # ========================================================
 
     c1, c2, c3, c4 = st.columns(4)
+
 
     with c1:
 
@@ -1027,6 +981,7 @@ elif page == "Facility Intelligence":
             f"{facility['resilience_score']:.1f}/100"
         )
 
+
     with c2:
 
         st.metric(
@@ -1034,12 +989,14 @@ elif page == "Facility Intelligence":
             facility["risk_level"]
         )
 
+
     with c3:
 
         st.metric(
             "Bed Occupancy",
             f"{facility['bed_occupancy_rate'] * 100:.1f}%"
         )
+
 
     with c4:
 
@@ -1049,9 +1006,9 @@ elif page == "Facility Intelligence":
         )
 
 
-    # --------------------------------------------------------
+    # ========================================================
     # RISK FACTORS
-    # --------------------------------------------------------
+    # ========================================================
 
     st.markdown(
         '<div class="section-title">'
@@ -1060,53 +1017,51 @@ elif page == "Facility Intelligence":
         unsafe_allow_html=True
     )
 
+
     reasons = []
 
-    if facility[
-        "avg_days_inventory"
-    ] < 5:
+
+    if facility["avg_days_inventory"] < 5:
 
         reasons.append(
             "📦 Medicine inventory is approaching a critical threshold."
         )
 
-    if facility[
-        "bed_occupancy_rate"
-    ] > 0.85:
+
+    if facility["bed_occupancy_rate"] > 0.85:
 
         reasons.append(
             "🛏️ Bed occupancy indicates elevated demand pressure."
         )
 
-    if facility[
-        "staff_availability_rate"
-    ] < 0.80:
+
+    if facility["staff_availability_rate"] < 0.80:
 
         reasons.append(
             "👩‍⚕️ Staff availability is below the preferred operating level."
         )
 
-    if facility[
-        "supplier_delay_days"
-    ] >= 3:
+
+    if facility["supplier_delay_days"] >= 3:
 
         reasons.append(
             "🚚 Supplier delays may increase inventory risk."
         )
 
-    if facility[
-        "stockout_count"
-    ] > 0:
+
+    if facility["stockout_count"] > 0:
 
         reasons.append(
             "⚠️ At least one medicine category is currently experiencing stock-out."
         )
+
 
     if not reasons:
 
         reasons.append(
             "✅ No major operational stress signal is currently detected."
         )
+
 
     for reason in reasons:
 
@@ -1115,34 +1070,35 @@ elif page == "Facility Intelligence":
         )
 
 
-    # --------------------------------------------------------
-    # FACILITY OPERATIONS
-    # --------------------------------------------------------
+    # ========================================================
+    # PATIENT DEMAND TREND
+    # ========================================================
 
     facility_operations = operations[
         operations[
             "facility_id"
-        ]
-        == selected_facility
+        ] == selected_facility
     ].copy()
+
 
     facility_operations = (
         facility_operations
         .sort_values("date")
     )
 
+
     fig = go.Figure()
+
 
     fig.add_trace(
         go.Scatter(
             x=facility_operations["date"],
-            y=facility_operations[
-                "patient_footfall"
-            ],
+            y=facility_operations["patient_footfall"],
             mode="lines",
             name="Patient Footfall"
         )
     )
+
 
     fig.update_layout(
         title="Patient Demand Trend",
@@ -1153,9 +1109,10 @@ elif page == "Facility Intelligence":
         paper_bgcolor="rgba(0,0,0,0)"
     )
 
+
     st.plotly_chart(
         fig,
-        use_container_width=True
+        width="stretch"
     )
 
 
@@ -1179,19 +1136,21 @@ elif page == "Medicine Network":
         unsafe_allow_html=True
     )
 
+
     medicine_data = inventory[
-        inventory["facility_id"]
-        .isin(filtered_ids)
+        inventory["facility_id"].isin(filtered_ids)
     ].copy()
+
 
     latest_date = medicine_data[
         "date"
     ].max()
 
+
     latest = medicine_data[
-        medicine_data["date"]
-        == latest_date
+        medicine_data["date"] == latest_date
     ]
+
 
     medicine_summary = (
         latest
@@ -1219,15 +1178,17 @@ elif page == "Medicine Network":
         )
     )
 
+
     st.dataframe(
         medicine_summary,
-        use_container_width=True,
+        width="stretch",
         hide_index=True
     )
 
-    # --------------------------------------------------------
+
+    # ========================================================
     # INVENTORY PRESSURE
-    # --------------------------------------------------------
+    # ========================================================
 
     fig = px.bar(
         medicine_summary,
@@ -1236,11 +1197,13 @@ elif page == "Medicine Network":
         title="Average Days of Medicine Inventory Remaining"
     )
 
+
     fig.add_hline(
         y=5,
         line_dash="dash",
         annotation_text="Critical threshold"
     )
+
 
     fig.update_layout(
         height=420,
@@ -1248,9 +1211,10 @@ elif page == "Medicine Network":
         paper_bgcolor="rgba(0,0,0,0)"
     )
 
+
     st.plotly_chart(
         fig,
-        use_container_width=True
+        width="stretch"
     )
 
 
@@ -1274,23 +1238,30 @@ elif page == "Crisis Simulator":
         unsafe_allow_html=True
     )
 
-    st.markdown(
-        """
-        <div class="response-panel">
 
-        <h3 style="color:#153B3B;">
-        What happens if demand suddenly increases?
-        </h3>
+    # ========================================================
+    # INTRO PANEL
+    # ========================================================
 
-        <p style="color:#617573;">
-        Simulate a demand surge and observe how facility
-        resilience changes across the network.
-        </p>
+    render_html("""
+            <div class="response-panel">
 
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+                <h3 style="color:#153B3B;">
+                    What happens if demand suddenly increases?
+                </h3>
+
+                <p style="color:#617573;">
+                    Simulate a demand surge and observe how facility
+                    resilience changes across the network.
+                </p>
+
+            </div>
+            """)
+
+
+    # ========================================================
+    # SURGE SLIDER
+    # ========================================================
 
     surge = st.slider(
         "Patient demand surge",
@@ -1301,11 +1272,13 @@ elif page == "Crisis Simulator":
         format="%d%%"
     )
 
-    # --------------------------------------------------------
+
+    # ========================================================
     # SIMULATION
-    # --------------------------------------------------------
+    # ========================================================
 
     simulated = filtered_resilience.copy()
+
 
     demand_pressure = (
         simulated[
@@ -1314,12 +1287,14 @@ elif page == "Crisis Simulator":
         + surge / 100
     )
 
+
     inventory_pressure = (
         simulated[
             "avg_days_inventory"
         ]
         - surge / 20
     )
+
 
     simulated["simulated_score"] = (
         simulated[
@@ -1331,6 +1306,7 @@ elif page == "Crisis Simulator":
         ) * 0.3
     )
 
+
     simulated[
         "simulated_score"
     ] = simulated[
@@ -1340,9 +1316,10 @@ elif page == "Crisis Simulator":
         100
     )
 
-    # --------------------------------------------------------
+
+    # ========================================================
     # IMPACT
-    # --------------------------------------------------------
+    # ========================================================
 
     baseline_average = (
         filtered_resilience[
@@ -1350,18 +1327,22 @@ elif page == "Crisis Simulator":
         ].mean()
     )
 
+
     simulated_average = (
         simulated[
             "simulated_score"
         ].mean()
     )
 
+
     difference = (
         simulated_average
         - baseline_average
     )
 
+
     c1, c2, c3 = st.columns(3)
+
 
     with c1:
 
@@ -1370,12 +1351,14 @@ elif page == "Crisis Simulator":
             f"{baseline_average:.1f}"
         )
 
+
     with c2:
 
         st.metric(
             "Simulated Resilience",
             f"{simulated_average:.1f}"
         )
+
 
     with c3:
 
@@ -1386,9 +1369,9 @@ elif page == "Crisis Simulator":
         )
 
 
-    # --------------------------------------------------------
+    # ========================================================
     # FACILITY IMPACT
-    # --------------------------------------------------------
+    # ========================================================
 
     comparison = simulated[
         [
@@ -1398,37 +1381,34 @@ elif page == "Crisis Simulator":
         ]
     ].copy()
 
+
     comparison = comparison.sort_values(
         "simulated_score"
     )
 
+
     fig = go.Figure()
+
 
     fig.add_trace(
         go.Bar(
-            y=comparison[
-                "facility_name"
-            ],
-            x=comparison[
-                "resilience_score"
-            ],
+            y=comparison["facility_name"],
+            x=comparison["resilience_score"],
             name="Baseline",
             orientation="h"
         )
     )
 
+
     fig.add_trace(
         go.Bar(
-            y=comparison[
-                "facility_name"
-            ],
-            x=comparison[
-                "simulated_score"
-            ],
+            y=comparison["facility_name"],
+            x=comparison["simulated_score"],
             name="After Surge",
             orientation="h"
         )
     )
+
 
     fig.update_layout(
         title="Facility Resilience Under Demand Surge",
@@ -1438,15 +1418,16 @@ elif page == "Crisis Simulator":
         paper_bgcolor="rgba(0,0,0,0)"
     )
 
+
     st.plotly_chart(
         fig,
-        use_container_width=True
+        width="stretch"
     )
 
 
-    # --------------------------------------------------------
+    # ========================================================
     # RESPONSE RECOMMENDATION
-    # --------------------------------------------------------
+    # ========================================================
 
     st.markdown(
         '<div class="section-title">'
@@ -1455,27 +1436,27 @@ elif page == "Crisis Simulator":
         unsafe_allow_html=True
     )
 
+
     most_affected = comparison.head(
         min(5, len(comparison))
     )
 
-    st.markdown(
-        """
-        <div class="response-panel">
 
-        <h3 style="color:#153B3B;">
-        Suggested resource prioritisation
-        </h3>
+    render_html("""
+            <div class="response-panel">
 
-        <p style="color:#617573;">
-        Under the simulated demand surge, the following
-        facilities should be reviewed first:
-        </p>
+                <h3 style="color:#153B3B;">
+                    Suggested resource prioritisation
+                </h3>
 
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+                <p style="color:#617573;">
+                    Under the simulated demand surge, the following
+                    facilities should be reviewed first.
+                </p>
+
+            </div>
+            """)
+
 
     for _, row in most_affected.iterrows():
 
@@ -1490,17 +1471,14 @@ elif page == "Crisis Simulator":
 # FOOTER
 # ============================================================
 
-st.markdown(
-    """
-    <div class="footer">
+render_html("""
+        <div class="footer">
 
-        CareMesh · Community Healthcare Resilience Intelligence
+            CareMesh · Community Healthcare Resilience Intelligence
 
-        <br>
+            <br>
 
-        Prototype demonstration using synthetic data.
+            Prototype demonstration using synthetic data.
 
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+        </div>
+        """)
