@@ -1,0 +1,31 @@
+facility_id,facility_name,facility_type,state,district,latitude,longitude,bed_capacity
+FAC-001,Ahmedabad Primary Health Centre,Primary Health Centre,Gujarat,Ahmedabad,23.009954011884737,72.61647143064098,20
+FAC-002,Surat Community Health Centre,Community Health Centre,Gujarat,Surat,21.193399394181142,72.84096584841971,81
+FAC-003,Nagpur Primary Health Centre,Primary Health Centre,Maharashtra,Nagpur,21.111401864044247,79.05379945203362,43
+FAC-004,Nashik District Hospital,District Hospital,Maharashtra,Nashik,19.96170836121682,73.82761761457749,339
+FAC-005,Bhavnagar District Hospital,District Hospital,Gujarat,Bhavnagar,21.774611501174324,72.1727072577796,172
+FAC-006,Hubballi Community Health Centre,Community Health Centre,Karnataka,Hubballi,15.31675844942958,75.17099098521619,54
+FAC-007,Pune Primary Health Centre,Primary Health Centre,Maharashtra,Pune,18.55364426408004,73.82793391106783,26
+FAC-008,Nagpur District Hospital,District Hospital,Maharashtra,Nagpur,21.113982496720713,79.05654045098534,304
+FAC-009,Pune District Hospital,District Hospital,Maharashtra,Pune,18.500824224295954,73.85917564316323,200
+FAC-010,Surat District Hospital,District Hospital,Gujarat,Surat,21.163394501864214,72.81022291401982,329
+FAC-011,Mangaluru Community Health Centre,Community Health Centre,Karnataka,Mangaluru,12.925285289472237,74.8199493860652,78
+FAC-012,Mysuru District Hospital,District Hospital,Karnataka,Mysuru,12.275014464853522,76.62603618432937,221
+FAC-013,Vadodara Primary Health Centre,Primary Health Centre,Gujarat,Vadodara,22.302806998421705,73.2097175961393,44
+FAC-014,Vadodara Primary Health Centre,Primary Health Centre,Gujarat,Vadodara,22.277167378215836,73.18262344384136,42
+FAC-015,Bengaluru Community Health Centre,Community Health Centre,Karnataka,Bengaluru,12.980841456886205,77.549245041272,85
+FAC-016,Satara Primary Health Centre,Primary Health Centre,Maharashtra,Satara,17.691254485190143,73.98535241236873,50
+FAC-017,Vadodara Community Health Centre,Community Health Centre,Gujarat,Vadodara,22.263705159298528,73.22608855372533,63
+FAC-018,Nashik Community Health Centre,Community Health Centre,Maharashtra,Nashik,20.052463203307457,73.82183973481165,62
+FAC-019,Ahmednagar Community Health Centre,Community Health Centre,Maharashtra,Ahmednagar,19.075661376917335,74.70936721140063,83
+FAC-020,Vadodara Primary Health Centre,Primary Health Centre,Gujarat,Vadodara,22.325623302651216,73.17521524937396,43
+FAC-021,Mysuru District Hospital,District Hospital,Karnataka,Mysuru,12.258003823484477,76.63891769101112,181
+FAC-022,Bhavnagar Community Health Centre,Community Health Centre,Gujarat,Bhavnagar,21.717938852111523,72.19283204020788,60
+FAC-023,Mangaluru Community Health Centre,Community Health Centre,Karnataka,Mangaluru,12.889977998160001,74.87225222843539,96
+FAC-024,Hubballi Primary Health Centre,Primary Health Centre,Karnataka,Hubballi,15.34587110760894,75.12600680211777,42
+FAC-025,Nashik Primary Health Centre,Primary Health Centre,Maharashtra,Nashik,20.01057102793433,73.75948544555256,41
+FAC-026,Nagpur Community Health Centre,Community Health Centre,Maharashtra,Nagpur,21.192758462776457,79.11571328233612,60
+FAC-027,Rajkot Primary Health Centre,Primary Health Centre,Gujarat,Rajkot,22.34784989415642,70.84168273504277,47
+FAC-028,Nashik Community Health Centre,Community Health Centre,Maharashtra,Nashik,20.015689997881108,73.83318742350231,85
+FAC-029,Mysuru District Hospital,District Hospital,Karnataka,Mysuru,12.254649250205192,76.60899828624191,243
+FAC-030,Satara Community Health Centre,Community Health Centre,Maharashtra,Satara,17.63502272889105,74.00083303307632,95
